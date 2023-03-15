@@ -1,9 +1,18 @@
-void setup() {
-  // put your setup code here, to run once:
+#include <FtduinoSimple.h>
+
+void setup()
+{
 
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void loop()
+{
 
+  while (ftduino.input_get(Ftduino::I1))
+  {
+    ftduino.motor_set(Ftduino::M1, Ftduino::LEFT);
+    
+  }
+  ftduino.motor_set(Ftduino::M1, Ftduino::OFF);
 }
+
