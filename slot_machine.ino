@@ -6,11 +6,9 @@ bool coin;
 int motor=2;
 int input=4;
 
-
-void setup()
+void setup() //Rollen fahren auf Ausgangsposition / Ausgabe schließt sich
 {
-
-
+  
   while (!ftduino.input_get(Ftduino::I6)) // linke Rolle
   {
     ftduino.motor_set(Ftduino::M2, Ftduino::LEFT);
@@ -36,6 +34,7 @@ void setup()
   ftduino.motor_set(Ftduino::M1, Ftduino::OFF);
 }
 
+
 void loop()
 {
   if ((ftduino.input_get(Ftduino::I3) && (ftduino.input_get(Ftduino::I7)) {
@@ -45,7 +44,6 @@ void loop()
       debug = true;
     }
   }
-
 
   coin = false;
 
@@ -69,20 +67,14 @@ void loop()
       stopRolling(t);
       }
     }
-
-  }
-   
+  }   
 }
 
 int calcPos(int min, int max){
 
   double range = max - min + 1;
   return min + (int)(range * rand()/(RAND_MAX+1.0));
-
-
-
 }
-
 
 void stopRolling(int t){
   int delay
@@ -103,8 +95,5 @@ void stopRolling(int t){
     delay(delay);
     ftduino.motor_set(motor, Ftduino::OFF);
   }
-
   
-
-
 }
