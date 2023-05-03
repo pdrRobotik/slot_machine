@@ -6,9 +6,11 @@ bool coin;
 int motor=2;
 int input=4;
 
-void setup() //Rollen fahren auf Ausgangsposition / Ausgabe schließt sich
+
+void setup()
 {
-  
+
+
   while (!ftduino.input_get(Ftduino::I6)) // linke Rolle
   {
     ftduino.motor_set(Ftduino::M2, Ftduino::LEFT);
@@ -34,10 +36,8 @@ void setup() //Rollen fahren auf Ausgangsposition / Ausgabe schließt sich
   ftduino.motor_set(Ftduino::M1, Ftduino::OFF);
 }
 
-
-void loop()
-{
-  if ((ftduino.input_get(Ftduino::I3) && (ftduino.input_get(Ftduino::I7)) {
+void loop(){
+  if ((ftduino.input_get(Ftduino::I3)) && (ftduino.input_get(Ftduino::I7))) {
     if (debug == true) {
       debug = false;
     } else {
@@ -45,9 +45,10 @@ void loop()
     }
   }
 
+
   coin = false;
 
-  if (ftduino.input_get(Ftduino::I1))
+  if (ftduino.input_get(Ftduino::I1)) //münzschlitz 
   {
     coin = true;
   }
@@ -56,9 +57,9 @@ void loop()
     coin = false;
   }
 
-  if (ftduino.input_get(Ftduino::I7) && coin == true)
+  if (ftduino.input_get(Ftduino::I7) && coin == true) //wenn coin registriert und startknopf
   {
-    ftduino.motor_set(Ftduino::M2, Ftduino::LEFT);
+    ftduino.motor_set(Ftduino::M2, Ftduino::LEFT); // rollen drehen
     ftduino.motor_set(Ftduino::M3, Ftduino::LEFT);
     ftduino.motor_set(Ftduino::M4, Ftduino::LEFT);
 
@@ -66,34 +67,39 @@ void loop()
       for (int t=0; t <= 2; t++) {
       stopRolling(t);
       }
-    }
-  }   
+    } 
+
+  }
+   
 }
 
 int calcPos(int min, int max){
 
   double range = max - min + 1;
   return min + (int)(range * rand()/(RAND_MAX+1.0));
+
+
+
 }
 
-void stopRolling(int t){
-  int delay
+
+void stopRolling(int t){ //rollen stoppen
+  int time;
   input = t+4;
   motor = t+2;
 
   switch(t) { //alle Zeitwerte anpassen!
     case 1:
-      delay = 100;
+      time = 100;
     case 2:
-      delay = 200;
+      time = 200;
     case 3:
-      delay = 300;
+      time = 300;
   }
 
   while (ftduino.input_get(input)) // Ausgabe
   {
-    delay(delay);
+    delay(time);
     ftduino.motor_set(motor, Ftduino::OFF);
   }
-  
 }
