@@ -86,7 +86,7 @@ void stopRolling(int t){
     case 2:
       duration=200;
     case 3:
-      duration=300;
+      duration=1000;
   }
 
   while (!ftduino.input_get(input)) // Ausgabe
