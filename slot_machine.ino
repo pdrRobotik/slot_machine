@@ -8,8 +8,9 @@ int input=4;
 
 void setup() //Rollen fahren auf Ausgangsposition / Ausgabe schließt sich
 {
-  
-  while (!ftduino.input_get(Ftduino::I6)) // linke Rolle
+  coin = false;
+
+  while (!ftduino.input_get(Ftduino::I4)) // linke Rolle
   {
     ftduino.motor_set(Ftduino::M2, Ftduino::LEFT);
   }
@@ -21,7 +22,7 @@ void setup() //Rollen fahren auf Ausgangsposition / Ausgabe schließt sich
   }
   ftduino.motor_set(Ftduino::M3, Ftduino::OFF);
 
-  while (!ftduino.input_get(Ftduino::I4)) // rechte Rolle
+  while (!ftduino.input_get(Ftduino::I6)) // rechte Rolle
   {
     ftduino.motor_set(Ftduino::M4, Ftduino::LEFT);
   }
@@ -37,7 +38,7 @@ void setup() //Rollen fahren auf Ausgangsposition / Ausgabe schließt sich
 
 void loop()
 {
-  if ((ftduino.input_get(Ftduino::I3) && (ftduino.input_get(Ftduino::I7)) {
+  if ((ftduino.input_get(Ftduino::I3) && (ftduino.input_get(Ftduino::I7)))) {
     if (debug == true) {
       debug = false;
     } else {
@@ -45,16 +46,11 @@ void loop()
     }
   }
 
-  coin = false;
-
   if (ftduino.input_get(Ftduino::I1))
   {
     coin = true;
   }
-  else
-  {
-    coin = false;
-  }
+
 
   if (ftduino.input_get(Ftduino::I7) && coin == true)
   {
@@ -62,13 +58,16 @@ void loop()
     ftduino.motor_set(Ftduino::M3, Ftduino::LEFT);
     ftduino.motor_set(Ftduino::M4, Ftduino::LEFT);
 
-    if (ftduino.input_get(Ftduino::I3)){
-      for (int t=0; t <= 2; t++) {
+    while (ftduino.input_get(Ftduino::I3)){}
+/*     ftduino.motor_set(Ftduino::M2, Ftduino::OFF);
+    ftduino.motor_set(Ftduino::M3, Ftduino::OFF);
+    ftduino.motor_set(Ftduino::M4, Ftduino::OFF); */
+    for (int t=0; t <= 3; t++) {
       stopRolling(t);
-      }
     }
   }   
 }
+
 
 int calcPos(int min, int max){
 
@@ -77,23 +76,25 @@ int calcPos(int min, int max){
 }
 
 void stopRolling(int t){
-  int delay
-  input = t+4;
-  motor = t+2;
+  input = t+3;
+  motor = t+1;
+  int duration;
 
-  switch(t) { //alle Zeitwerte anpassen!
+  switch(calcPos(1, 3)) { //alle Zeitwerte anpassen!
     case 1:
-      delay = 100;
+      duration=100;
     case 2:
-      delay = 200;
+      duration=200;
     case 3:
-      delay = 300;
+      duration=300;
   }
 
-  while (ftduino.input_get(input)) // Ausgabe
+  while (!ftduino.input_get(input)) // Ausgabe
   {
-    delay(delay);
-    ftduino.motor_set(motor, Ftduino::OFF);
+  
   }
+  delay(duration);
+  ftduino.motor_set(motor, Ftduino::OFF);
+  
   
 }
