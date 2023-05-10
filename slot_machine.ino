@@ -6,11 +6,9 @@ bool coin;
 int motor=2;
 int input=4;
 
-
-void setup()
+void setup() //Rollen fahren auf Ausgangsposition / Ausgabe schließt sich
 {
-
-
+  
   while (!ftduino.input_get(Ftduino::I6)) // linke Rolle
   {
     ftduino.motor_set(Ftduino::M2, Ftduino::LEFT);
@@ -36,8 +34,10 @@ void setup()
   ftduino.motor_set(Ftduino::M1, Ftduino::OFF);
 }
 
-void loop(){
-  if ((ftduino.input_get(Ftduino::I3)) && (ftduino.input_get(Ftduino::I7))) {
+
+void loop()
+{
+  if ((ftduino.input_get(Ftduino::I3) && (ftduino.input_get(Ftduino::I7)) {
     if (debug == true) {
       debug = false;
     } else {
@@ -45,10 +45,9 @@ void loop(){
     }
   }
 
-
   coin = false;
 
-  if (ftduino.input_get(Ftduino::I1)) //münzschlitz 
+  if (ftduino.input_get(Ftduino::I1))
   {
     coin = true;
   }
@@ -57,9 +56,9 @@ void loop(){
     coin = false;
   }
 
-  if (ftduino.input_get(Ftduino::I7) && coin == true) //wenn coin registriert und startknopf
+  if (ftduino.input_get(Ftduino::I7) && coin == true)
   {
-    ftduino.motor_set(Ftduino::M2, Ftduino::LEFT); // rollen drehen
+    ftduino.motor_set(Ftduino::M2, Ftduino::LEFT);
     ftduino.motor_set(Ftduino::M3, Ftduino::LEFT);
     ftduino.motor_set(Ftduino::M4, Ftduino::LEFT);
 
@@ -67,39 +66,34 @@ void loop(){
       for (int t=0; t <= 2; t++) {
       stopRolling(t);
       }
-    } 
-
-  }
-   
+    }
+  }   
 }
 
 int calcPos(int min, int max){
 
   double range = max - min + 1;
   return min + (int)(range * rand()/(RAND_MAX+1.0));
-
-
-
 }
 
-
-void stopRolling(int t){ //rollen stoppen
-  int time;
+void stopRolling(int t){
+  int delay
   input = t+4;
   motor = t+2;
 
   switch(t) { //alle Zeitwerte anpassen!
     case 1:
-      time = 100;
+      delay = 100;
     case 2:
-      time = 200;
+      delay = 200;
     case 3:
-      time = 300;
+      delay = 300;
   }
 
   while (ftduino.input_get(input)) // Ausgabe
   {
-    delay(time);
+    delay(delay);
     ftduino.motor_set(motor, Ftduino::OFF);
   }
+  
 }
