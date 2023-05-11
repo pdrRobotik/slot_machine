@@ -83,10 +83,13 @@ void stopRolling(int t){
   switch(calcPos(1, 3)) { //alle Zeitwerte anpassen!
     case 1:
       duration=100;
+      break;
     case 2:
       duration=200;
+      break;
     case 3:
       duration=1000;
+      break;
   }
 
   while (!ftduino.input_get(input)) // Ausgabe
