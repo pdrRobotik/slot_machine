@@ -45,7 +45,7 @@ void loop()
       debug = true;
     }
   }
-
+  
   if (ftduino.input_get(Ftduino::I1))
   {
     coin = true;
@@ -65,6 +65,7 @@ void loop()
     for (int t=0; t <= 3; t++) {
       stopRolling(t);
     }
+    coin = false;
   }   
 }
 
@@ -80,12 +81,12 @@ void stopRolling(int t){
   motor = t+1;
   int duration;
 
-  switch(calcPos(1, 3)) { //alle Zeitwerte anpassen!
+  switch(calcPos(1, 3)) { //alle Zeitwerte anpassen! 1 Umdrehung -> ca. 700
     case 1:
       duration=100;
       break;
     case 2:
-      duration=200;
+      duration=400;
       break;
     case 3:
       duration=1000;
