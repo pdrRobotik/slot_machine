@@ -93,7 +93,7 @@ void stopRolling(int t){
       break;
   }
 
-  while (!ftduino.input_get(input)) // Ausgabe
+  while (!ftduino.input_get(input)) // Motor stoppen
   {
   
   }
